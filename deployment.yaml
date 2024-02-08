@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: gw1106/movie-app-beta:v1
+        image: newdoinacr.azurerc.io/my-login-app:v1
         ports:
         - containerPort: 80
