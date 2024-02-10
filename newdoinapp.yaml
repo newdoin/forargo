@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: newdoinapp
+  name: aspnetapp
   labels:
-    app: newdoinapp
+    app: aspnetapp
 spec:
   containers:
-  - image: gw1106/movie-app-beta:v1
-    name: movieapp-image
+  - image: "mcr.microsoft.com/dotnet/samples:aspnetapp"
+    name: aspnetapp-image
     ports:
-    - containerPort: 5080
+    - containerPort: 8080
       protocol: TCP
 
 ---
@@ -17,21 +17,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: newdoinapp
+  name: aspnetapp
 spec:
   selector:
-    app: newdoinapp
+    app: aspnetapp
   ports:
   - protocol: TCP
-    port: 5080
-    targetPort: 5080
+    port: 80
+    targetPort: 8080
 
 ---
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: newdoinapp
+  name: aspnetapp
   # annotations:
   #   kubernetes.io/ingress.class: azure/application-gateway
 spec:
@@ -39,10 +39,10 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /newdoin
         backend:
           service:
-            name: newdoinapp
+            name: aspnetapp
             port:
-              number: 5080
+              number: 80
         pathType: Exact
