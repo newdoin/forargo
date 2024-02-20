@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: azure-vote
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: azure-vote-front
+                port:
+                  number: 80
+            pathType: Prefix
+          - path: /api
+            backend:
+              service:
+                name: azure-vote-back
+                port:
+                  number: 6379
+            pathType: Prefix
